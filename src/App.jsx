@@ -6,6 +6,7 @@ import Donation from "./components/donation/Donation";
 import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
 import { motion } from "framer-motion";
+import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 
 function App() {
   const [currentHeight, setCurrentHeight] = useState(0);
@@ -22,6 +23,7 @@ function App() {
       <Blog />
       <Contact />
       <Footer />
+      <ScrollToTop/>
     </motion.div>
   );
 }

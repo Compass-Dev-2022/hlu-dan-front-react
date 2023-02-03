@@ -6,7 +6,11 @@ import contactIcon3 from "../../assets/contact/contact_icon3.svg";
 import contactIcon4 from "../../assets/contact/contact_icon4.svg";
 import journey from "../../assets/contact/journey.svg";
 import "./Contact.css";
-import { leftAnimation, zoomAnimation } from "../animation/animation";
+import {
+  leftAnimation,
+  rightAnimation,
+  zoomAnimation,
+} from "../animation/animation";
 import { useScroll } from "../animation/useScroll";
 
 const Contact = () => {
@@ -21,6 +25,7 @@ const Contact = () => {
 };
 
 const Impact = () => {
+  const [element, controls] = useScroll();
   const contactArray = [
     {
       id: 1,
@@ -48,9 +53,29 @@ const Impact = () => {
     },
   ];
   return (
-    <div className="flex justify-between px-5 xl:px-20 relative">
-      <div className=" xl:w-[40rem] xl:h-[40rem] 2xl:w-[46rem] 2xl:h-[48rem] bg-contact_image bg-no-repeat bg-cover "></div>
-      <div className="xl:w-[582px]">
+    <div className="flex justify-between px-5 xl:px-20 relative overflow-hidden">
+      <motion.div
+        className=" xl:w-[40rem] xl:h-[40rem] 2xl:w-[46rem] 2xl:h-[48rem] bg-contact_image bg-no-repeat bg-cover "
+        ref={element}
+        variants={zoomAnimation}
+        animate={controls}
+        transition={{
+          delay: 0.02,
+          type: "tween",
+          duration: 0.8,
+        }}
+      ></motion.div>
+      <motion.div
+        className="xl:w-[582px]"
+        ref={element}
+        variants={rightAnimation}
+        animate={controls}
+        transition={{
+          delay: 0.02,
+          type: "tween",
+          duration: 0.8,
+        }}
+      >
         <p className="text-[30px] xl:text-[50px] text-primary">
           Let's make an impact
         </p>
@@ -69,7 +94,7 @@ const Impact = () => {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
