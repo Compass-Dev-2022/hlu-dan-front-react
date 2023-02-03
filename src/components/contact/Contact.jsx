@@ -1,16 +1,21 @@
 import React from "react";
+import { motion } from "framer-motion";
 import contactIcon1 from "../../assets/contact/contact_icon1.svg";
 import contactIcon2 from "../../assets/contact/contact_icon2.svg";
 import contactIcon3 from "../../assets/contact/contact_icon3.svg";
 import contactIcon4 from "../../assets/contact/contact_icon4.svg";
 import journey from "../../assets/contact/journey.svg";
 import "./Contact.css";
+import { leftAnimation, zoomAnimation } from "../animation/animation";
+import { useScroll } from "../animation/useScroll";
 
 const Contact = () => {
+  const [element, controls] = useScroll();
+
   return (
-    <div className="relative">
+    <div className="relative py-40" id="contact">
       <Impact />
-      <Journey />
+      <Journey element={element} controls={controls} />
     </div>
   );
 };
@@ -44,7 +49,7 @@ const Impact = () => {
   ];
   return (
     <div className="flex justify-between px-5 xl:px-20 relative">
-      <div className=" xl:w-[40rem] xl:h-[40rem] 2xl:w-[46rem] 2xl:h-[48rem] bg-contact-image bg-no-repeat bg-cover "></div>
+      <div className=" xl:w-[40rem] xl:h-[40rem] 2xl:w-[46rem] 2xl:h-[48rem] bg-contact_image bg-no-repeat bg-cover "></div>
       <div className="xl:w-[582px]">
         <p className="text-[30px] xl:text-[50px] text-primary">
           Let's make an impact
@@ -69,12 +74,22 @@ const Impact = () => {
   );
 };
 
-const Journey = () => {
+const Journey = ({ element, controls }) => {
   return (
     <>
       <div className="relative  xl:py-10 2xl:py-0       h-[70rem] xl:h-[56rem] 2xl:h-[60rem]     flex flex-col xl:flex-row  xl:px-20 mt-10 xl:-mt-[16rem] before:absolute before:bottom-0 before:left-[50%] before:contents-[''] before:w-screen before:h-full before:bg-primary before:rounded-b-full before:origin-bottom before:-translate-x-1/2 before:scale-[1.8] 	xl:before:scale-[1.8] 2xl:before:scale-[4]  overflow-hidden">
         <div className=" z-50 mx-auto w-full xl:w-[1300rem]    xl:flex justify-between items-center">
-          <div className="xl:w-[600px] px-5 py-5 xl:py-0 xl:px-0">
+          <motion.div
+            className="xl:w-[600px] px-5 py-5 xl:py-0 xl:px-0 "
+            ref={element}
+            variants={leftAnimation}
+            animate={controls}
+            transition={{
+              delay: 0.02,
+              type: "tween",
+              duration: 0.8,
+            }}
+          >
             <p className="text-[32px] xl:text-[46px] text-white">
               Be A Part Of Our Journey
             </p>
@@ -93,11 +108,19 @@ const Journey = () => {
                 Submit
               </button>
             </div>
-          </div>
-          <img
+          </motion.div>
+          <motion.img
             src={journey}
             alt=""
             className="w-[330px] h-[428px] mt-20 xl:mt-0  mx-auto xl:w-[475.81px] xl:h-[622px] object-cover"
+            ref={element}
+            variants={zoomAnimation}
+            animate={controls}
+            transition={{
+              delay: 0.03,
+              type: "tween",
+              duration: 0.8,
+            }}
           />
         </div>
       </div>

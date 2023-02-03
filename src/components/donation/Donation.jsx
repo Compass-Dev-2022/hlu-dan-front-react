@@ -1,18 +1,32 @@
 import React, { useState } from "react";
 import donationImag1 from "../../assets/donation/donationImage1.svg";
 import forwardArrow from "../../assets/donation/forwardArrow.svg";
+import { motion } from "framer-motion";
+import { useScroll } from "../animation/useScroll";
+import { downAnimation, zoomAnimation } from "../animation/animation";
 
 const Donation = () => {
   return (
-    <div className="px-5 xl:px-20">
+    <div className="px-5 xl:px-20 " id="donation">
       <Intro />
       <DonationCategories />
     </div>
   );
 };
 const Intro = () => {
+  const [element, controls] = useScroll();
   return (
-    <div className=" pb-20 relative">
+    <motion.div
+      className=" py-40 relative"
+      ref={element}
+      variants={zoomAnimation}
+      animate={controls}
+      transition={{
+        delay: 0.02,
+        type: "tween",
+        duration: 0.8,
+      }}
+    >
       <p className="text-center text-[32px] xl:text-[36px] font-bold mb-5">
         Help us <span className="text-primary">Save</span> the world.
       </p>
@@ -20,7 +34,7 @@ const Intro = () => {
         Mattis et aliquam fermentum sed sagittis eu elit mauris. Nisl
         <br /> eros vel neque vitae lorem molestie.
       </p>
-    </div>
+    </motion.div>
   );
 };
 
@@ -150,8 +164,19 @@ const CategoryCards = () => {
 };
 
 const CategoryCard = ({ cat_name, cat_desc }) => {
+  const [element, controls] = useScroll();
   return (
-    <div className=" w-[320px] bg-white rounded-[20px] shadow-bg-shadow-donation p-5 ">
+    <motion.div
+      className=" w-[320px] bg-white rounded-[20px] shadow-bg-shadow-donation p-5 "
+      ref={element}
+      variants={downAnimation}
+      animate={controls}
+      transition={{
+        delay: 0.08,
+        type: "tween",
+        duration: 0.8,
+      }}
+    >
       <img src={donationImag1} alt="" />
       <p className="text-[12px] text-clr-0-0-60 my-4">{cat_name}</p>
       <p className="text-[18px] font-bold">{cat_desc}</p>
@@ -168,7 +193,7 @@ const CategoryCard = ({ cat_name, cat_desc }) => {
           Donate Now
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -22,15 +22,15 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        "form-vector": "url('./src/assets/home/banner/form-vector.svg')",
-        "form-vector-mobile":
+        form_vector: "url('./src/assets/home/banner/form-vector.svg')",
+        form_vector_mobile:
           "url('./src/assets/home/banner/form-vector-mobile.svg')",
-        "category-about": "url('./src/assets/about/categoryAboutImage.svg')",
-        "category-about-mobile":
+        category_about: "url('./src/assets/about/categoryAboutImage.svg')",
+        category_about_mobile:
           "url('./src/assets/about/categoryAboutImageMobile.svg')",
-        "play-video": "url('./src/assets/about/categoryVideo.svg')",
-        "contact-image": "url('./src/assets/contact/contact.svg')",
-        "curved-divider": "url('./src/assets/contact/curvedDivider.svg')",
+        play_video: "url('./src/assets/about/categoryVideo.svg')",
+        contact_image: "url('./src/assets/contact/contact.svg')",
+        curved_divider: "url('./src/assets/contact/curvedDivider.svg')",
       },
       boxShadow: {
         "bg-shadow-donation": "3px 3px 30px 0px rgba(0,0,0,0.08)",

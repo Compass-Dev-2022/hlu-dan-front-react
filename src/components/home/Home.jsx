@@ -5,27 +5,40 @@ import circle2 from "../../assets/home/banner/circle2.svg";
 import circle3 from "../../assets/home/banner/circle3.svg";
 import { FiAlignLeft, FiX } from "react-icons/fi";
 import "./Home.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-scroll";
+import { motion } from "framer-motion";
+import {
+  leftAnimation,
+  rightAnimation,
+  zoomAnimation,
+} from "../animation/animation";
+import { useScroll } from "../animation/useScroll";
+
 const menuData = [
   {
     id: 1,
     item: "Home",
+    link_id: "home",
   },
   {
     id: 2,
     item: "About",
+    link_id: "about",
   },
   {
     id: 3,
     item: "Donation",
+    link_id: "donation",
   },
   {
     id: 4,
     item: "Blog",
+    link_id: "blog",
   },
   {
     id: 5,
     item: "Contact",
+    link_id: "contact",
   },
 ];
 const Home = ({ currentHeight }) => {
@@ -34,7 +47,10 @@ const Home = ({ currentHeight }) => {
     setMenuActive(!menuActive);
   };
   return (
-    <section className="relative min-h-screen w-full ">
+    <section
+      className="relative min-h-[112vh]  xl:min-h-screen w-full "
+      id="home"
+    >
       <Header
         handleMenuActive={handleMenuActive}
         currentHeight={currentHeight}
@@ -43,7 +59,7 @@ const Home = ({ currentHeight }) => {
       <HumbagerMenuItems
         menuActive={menuActive}
         handleMenuActive={handleMenuActive}
-      />
+      />{" "}
     </section>
   );
 };
@@ -60,7 +76,22 @@ const Header = ({ handleMenuActive, currentHeight }) => {
   );
 };
 
-const Logo = () => <img src={logoImage} />;
+const Logo = () => {
+  const [element, controls] = useScroll();
+  return (
+    <motion.img
+      src={logoImage}
+      ref={element}
+      variants={zoomAnimation}
+      animate={controls}
+      transition={{
+        delay: 0.02,
+        type: "tween",
+        duration: 0.5,
+      }}
+    />
+  );
+};
 
 const Menu = ({ currentHeight }) => {
   const [active, setActive] = useState(1);
@@ -71,11 +102,11 @@ const Menu = ({ currentHeight }) => {
     " before:content-[''] before:absolute before:block before:w-1 before:h-1 before:bg-primary  before:rounded-full before:top-7 before:left-[50%] before:-translate-x-1/2 transition-all ease-in-out delay-[3000]";
 
   useEffect(() => {
-    if (currentHeight > 982 && currentHeight < 3297) {
+    if (currentHeight > 846 && currentHeight < 3297) {
       setActive(2);
-    } else if (currentHeight > 3297 && currentHeight < 7073) {
+    } else if (currentHeight > 3297 && currentHeight < 7000) {
       setActive(3);
-    } else if (currentHeight > 7074 && currentHeight < 8810) {
+    } else if (currentHeight > 7001 && currentHeight < 8810) {
       setActive(4);
     } else if (currentHeight > 8705) {
       setActive(5);
@@ -86,16 +117,18 @@ const Menu = ({ currentHeight }) => {
 
   return (
     <ul className="hidden  xl:flex items-center justify-center list-none gap-x-[65px]  cursor-pointer">
-      {menuData.map(({ id, item }) => (
-        <li
-          key={id}
-          className={`${
-            id === active ? `text-primary ${activeDot}` : ""
-          } relative`}
-          onClick={() => setActive(id)}
-        >
-          {item}
-        </li>
+      {menuData.map(({ id, item, link_id }) => (
+        <Link activeClass="activeDot" smooth spy to={link_id}>
+          <li
+            key={id}
+            className={`${
+              id === active ? `text-primary ${activeDot}` : ""
+            } relative`}
+            onClick={() => setActive(id)}
+          >
+            {item}
+          </li>
+        </Link>
       ))}
     </ul>
   );
@@ -142,13 +175,15 @@ const HumbagerMenuItems = ({ menuActive, handleMenuActive }) => {
         <FiX />
       </div>
       <ul className="flex flex-col gap-y-8 ">
-        {menuData.map(({ id, item }) => (
-          <li
-            className="text-center text-[40px] text-white "
-            onClick={handleMenuActive}
-          >
-            {item}
-          </li>
+        {menuData.map(({ id, item, link_id }) => (
+          <Link activeClass="activeDot" smooth spy to={link_id}>
+            <li
+              className="text-center text-[40px] text-white "
+              onClick={handleMenuActive}
+            >
+              {item}
+            </li>
+          </Link>
         ))}
       </ul>
     </div>
@@ -160,13 +195,24 @@ const HumbagerMenuItems = ({ menuActive, handleMenuActive }) => {
 // *************** Banner **********
 
 const Banner = () => {
+  const [element, controls] = useScroll();
   const button =
     "px-8 py-3 xl:px-10  xl:py-3 border border-primary rounded-[24px]";
 
   return (
-    <div>
-      <div className="absolute top-32 xl:top-0 h-full w-full xl:flex xl:flex-row xl:justify-between items-center px-0 xl:px-20 z-0">
-        <div className="w-full  xl:max-w-[520px] px-4 xl:px-0 mb-20 xl:mb-0 ">
+    <div className="h-full">
+      <div className="absolute top-32 xl:top-0 h-full w-full xl:flex xl:flex-row xl:justify-between items-center px-0 xl:px-20 z-0 overflow-hidden  ">
+        <motion.div
+          className="w-full  xl:max-w-[520px] px-4 xl:px-0 mb-20 xl:mb-0 "
+          ref={element}
+          variants={leftAnimation}
+          animate={controls}
+          transition={{
+            delay: 0.02,
+            type: "tween",
+            duration: 0.8,
+          }}
+        >
           <p className="text-[40px]  xl:text-[60px] text-center xl:text-left text-black font-bold">
             Donating is about
             <br /> making
@@ -183,27 +229,66 @@ const Banner = () => {
           >
             Donate Now
           </button>
-        </div>
-        <div className="bg-form-vector-mobile    xl:bg-form-vector  w-full h-[33rem] md:h-[64rem]  xl:pt-0  xl:w-[717px] xl:h-[675px] bg-no-repeat bg-cover flex items-center justify-center">
+        </motion.div>
+        <motion.div
+          className="bg-form_vector_mobile    xl:bg-form_vector  w-full h-[33rem] md:h-[64rem]  xl:pt-0  xl:w-[717px] xl:h-[675px] bg-no-repeat bg-cover flex items-center justify-center  "
+          ref={element}
+          variants={zoomAnimation}
+          animate={controls}
+          transition={{
+            delay: 0.02,
+            type: "tween",
+            duration: 0.8,
+          }}
+        >
           <DonationForm />
-        </div>
+        </motion.div>
       </div>
-      <img src={circle3} alt="" className=" absolute top-20  " />
-      <img
+      <motion.img
+        src={circle3}
+        alt=""
+        className=" absolute top-20  "
+        ref={element}
+        variants={zoomAnimation}
+        animate={controls}
+        transition={{
+          delay: 0.02,
+          type: "tween",
+          duration: 0.3,
+        }}
+      />
+      <motion.img
         src={circle1}
         alt=""
         className="absolute right-0 bottom-[58%]  w-[2.75rem] h-[2.75rem] xl:left-0 xl:bottom-0 xl:w-[10rem] xl:h-[10rem]"
+        ref={element}
+        variants={zoomAnimation}
+        animate={controls}
+        transition={{
+          delay: 0.02,
+          type: "tween",
+          duration: 0.3,
+        }}
       />
-      <img
+      <motion.img
         src={circle2}
         alt=""
         className="absolute bottom-[15.188rem] left-0 xl:bottom-0 xl:left-[50%]"
+        ref={element}
+        variants={zoomAnimation}
+        animate={controls}
+        transition={{
+          delay: 0.02,
+          type: "tween",
+          duration: 0.3,
+        }}
       />
     </div>
   );
 };
 
 const DonationForm = () => {
+  const [element, controls] = useScroll();
   const RadioArray = [
     {
       id: 1,
@@ -237,7 +322,17 @@ const DonationForm = () => {
     },
   ];
   return (
-    <div className="w-[80%]    xl:h-[480px] xl:w-[370px] relative bg-white rounded-[12px] px-5 xl:flex flex-col justify-evenly py-5">
+    <motion.div
+      className="w-[80%]    xl:h-[480px] xl:w-[370px] relative bg-white rounded-[12px] px-5 xl:flex flex-col justify-evenly py-5"
+      ref={element}
+      variants={zoomAnimation}
+      animate={controls}
+      transition={{
+        delay: 0.05,
+        type: "tween",
+        duration: 2,
+      }}
+    >
       <p className="text-black text-[1.228rem]  xl:text-[24px] text-center">
         Donation Amount
       </p>
@@ -285,7 +380,7 @@ const DonationForm = () => {
       <div className="donate_now_button">
         <button>DONATE NOW</button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

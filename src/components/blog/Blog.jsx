@@ -2,10 +2,16 @@ import React from "react";
 import blog1Image from "../../assets/blog/blogImg1.svg";
 import blog2Image from "../../assets/blog/blogImg2.svg";
 import forwardArrow from "../../assets/donation/forwardArrow.svg";
+import { motion } from "framer-motion";
+import {
+  downAnimation,
+  zoomAnimation,
+} from "../animation/animation";
+import { useScroll } from "../animation/useScroll";
 
 const Blog = () => {
   return (
-    <div className="px-5 xl:px-20 my-36">
+    <div className="px-5 xl:px-20  py-40" id="blog">
       <Intro />
 
       <BlogLists />
@@ -14,8 +20,20 @@ const Blog = () => {
 };
 
 const Intro = () => {
+  const [element, controls] = useScroll();
+
   return (
-    <div className="xl:p-20 relative mb-20">
+    <motion.div
+      className="xl:p-20 relative mb-20"
+      ref={element}
+      variants={zoomAnimation}
+      animate={controls}
+      transition={{
+        delay: 0.02,
+        type: "tween",
+        duration: 0.8,
+      }}
+    >
       <p className="text-center text-[32px] xl:text-[36px] font-bold mb-5">
         Stay Up To <span className="text-primary">Date</span>
       </p>
@@ -23,7 +41,7 @@ const Intro = () => {
         Mattis et aliquam fermentum sed sagittis eu elit mauris. Nisl
         <br /> eros vel neque vitae lorem molestie.
       </p>
-    </div>
+    </motion.div>
   );
 };
 
@@ -60,11 +78,12 @@ const BlogLists = () => {
       blog_desc: "Empower the Kids of Burma",
     },
   ];
+
   return (
     <div className="xl:w-[80%] mx-auto">
       <FirstBlog />
       <div className="grid grid_cols_1 xl:grid-cols-[1fr_1fr_1fr]  w-full  mx-auto gap-20  justify-items-center mt-20">
-        {blogListsArray.map(({ id, blog_name, blog_desc }) => (
+        {blogListsArray.map((i, { id, blog_name, blog_desc }) => (
           <BLogCard key={1} blog_name={blog_name} blog_desc={blog_desc} />
         ))}
       </div>
@@ -74,8 +93,20 @@ const BlogLists = () => {
 };
 
 const FirstBlog = () => {
+  const [element, controls] = useScroll();
+
   return (
-    <div className="flex flex-col-reverse xl:flex xl:flex-row justify-between items-center xl:h-[321px] ">
+    <motion.div
+      className="flex flex-col-reverse xl:flex xl:flex-row justify-between items-center xl:h-[321px] "
+      ref={element}
+      variants={downAnimation}
+      animate={controls}
+      transition={{
+        delay: 0.02,
+        type: "tween",
+        duration: 0.8,
+      }}
+    >
       <div className="h-full flex flex-col justify-between items-start w-full xl:w-[470px]">
         <p className="text-[14px] font-bold text-primary">CATEGORY</p>
         <p className="text-[32px] font-bold">
@@ -92,13 +123,25 @@ const FirstBlog = () => {
         </button>
       </div>
       <img src={blog1Image} alt="" className="mb-3" />
-    </div>
+    </motion.div>
   );
 };
 
 const BLogCard = () => {
+  const [element, controls] = useScroll();
+
   return (
-    <div className="relative max-w-[250px] shadow-bg-shadow-blog rounded-[5px]">
+    <motion.div
+      className="relative max-w-[250px] shadow-bg-shadow-blog rounded-[5px]"
+      ref={element}
+      variants={downAnimation}
+      animate={controls}
+      transition={{
+        delay: 0.08,
+        type: "tween",
+        duration: 0.8,
+      }}
+    >
       <img src={blog2Image} alt="" className="rounded-t-[5px]" />
       <div>
         <p className="ml-3 my-3 text-[8px]">CATEGORY</p>
@@ -106,7 +149,7 @@ const BLogCard = () => {
           Empower the Kids of Burmagdsgsdg
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
