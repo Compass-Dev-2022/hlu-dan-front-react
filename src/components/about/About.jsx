@@ -22,7 +22,7 @@ import {
 import { motion } from "framer-motion";
 const About = () => {
   return (
-    <div className="mt-40 md:mt-[70%] xl:mt-20   pt-16" id="about">
+    <div className=" md:mt-[70%] xl:mt-20   pt-16" id="about">
       <Intro />
       <IntroCards />
       <AboutUs />
@@ -106,7 +106,7 @@ const IntroCard = ({ icon, text, desc, active }) => {
   const [element, controls] = useScroll();
   return (
     <motion.div
-      className={`flex flex-col justify-between items-center   relative mx-auto mb-20 xl:my-0 w-[90%] xl:w-[330px] h-[350px] p-5 text-center rounded-[30px] ${
+      className={`flex flex-col justify-between items-center   relative mx-auto mb-20 xl:my-0 w-[90%] xl:w-[330px] h-[350px] p-5 text-center rounded-[30px]  ${
         active ? "bg-primary" : "bg-clr-205-79-50-0.05 "
       }`}
       ref={element}

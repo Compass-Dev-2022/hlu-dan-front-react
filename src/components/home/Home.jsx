@@ -9,7 +9,6 @@ import { Link } from "react-scroll";
 import { motion } from "framer-motion";
 import {
   leftAnimation,
-  rightAnimation,
   zoomAnimation,
 } from "../animation/animation";
 import { useScroll } from "../animation/useScroll";
@@ -48,7 +47,7 @@ const Home = ({ currentHeight }) => {
   };
   return (
     <section
-      className="relative min-h-[112vh]  xl:min-h-screen w-full "
+      className="relative min-h-[140vh]   xl:min-h-screen w-full  "
       id="home"
     >
       <Header
@@ -67,7 +66,7 @@ const Home = ({ currentHeight }) => {
 
 const Header = ({ handleMenuActive, currentHeight }) => {
   return (
-    <div className="bg-white fixed w-full top-0 left-0 py-5 px-5 xl:px-20 flex justify-between items-center z-[100] shadow-bg-shadow-header">
+    <div className="bg-white fixed w-full top-0 left-0 py-2 px-5 xl:px-20 flex justify-between items-center z-[100] shadow-bg-shadow-header">
       <Logo />
       <Menu currentHeight={currentHeight} />
       <Profile />
@@ -93,37 +92,18 @@ const Logo = () => {
   );
 };
 
-const Menu = ({ currentHeight }) => {
-  const [active, setActive] = useState(1);
+const Menu = () => {
 
-  console.log("MenuCurrentHeight", currentHeight);
 
   let activeDot =
-    " before:content-[''] before:absolute before:block before:w-1 before:h-1 before:bg-primary  before:rounded-full before:top-7 before:left-[50%] before:-translate-x-1/2 transition-all ease-in-out delay-[3000]";
-
-  useEffect(() => {
-    if (currentHeight > 846 && currentHeight < 3297) {
-      setActive(2);
-    } else if (currentHeight > 3297 && currentHeight < 7000) {
-      setActive(3);
-    } else if (currentHeight > 7001 && currentHeight < 8810) {
-      setActive(4);
-    } else if (currentHeight > 8705) {
-      setActive(5);
-    } else {
-      setActive(1);
-    }
-  }, [currentHeight]);
+    " before:content-[''] before:absolute before:block before:w-1 before:h-1 before:bg-primary  before:rounded-full before:top-7 before:left-[50%] before:-translate-x-1/2 transition-all ease-in-out delay-[3000] text-primary relative";
 
   return (
     <ul className="hidden  xl:flex items-center justify-center list-none gap-x-[65px]  cursor-pointer">
       {menuData.map(({ id, item, link_id }) => (
-        <Link activeClass="activeDot" smooth spy to={link_id}>
+        <Link activeClass={activeDot} smooth spy to={link_id}>
           <li
             key={id}
-            className={`${
-              id === active ? `text-primary ${activeDot}` : ""
-            } relative`}
             onClick={() => setActive(id)}
           >
             {item}

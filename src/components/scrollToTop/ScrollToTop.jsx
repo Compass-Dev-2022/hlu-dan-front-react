@@ -19,7 +19,7 @@ function ScrollToTop() {
     });
   };
   return (
-    <div className={`w-[2rem] h-[2rem] bg-primary  text-white fixed bottom-2 right-3 flex justify-center items-center rounded-full ${ showTopBtn ?"block" : "hidden"}`}>
+    <div className={`w-[3rem] h-[3rem] bg-primary  text-white fixed bottom-2 right-3 flex justify-center items-center rounded-full ${ showTopBtn ?"block" : "hidden"} cursor-pointer`}>
       <FaAngleUp className="text-[30px] text-white" onClick={goToTop} />
     </div>
   );
