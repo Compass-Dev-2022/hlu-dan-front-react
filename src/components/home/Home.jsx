@@ -7,10 +7,7 @@ import { FiAlignLeft, FiX } from "react-icons/fi";
 import "./Home.css";
 import { Link } from "react-scroll";
 import { motion } from "framer-motion";
-import {
-  leftAnimation,
-  zoomAnimation,
-} from "../animation/animation";
+import { leftAnimation, zoomAnimation } from "../animation/animation";
 import { useScroll } from "../animation/useScroll";
 
 const menuData = [
@@ -93,8 +90,6 @@ const Logo = () => {
 };
 
 const Menu = () => {
-
-
   let activeDot =
     " before:content-[''] before:absolute before:block before:w-1 before:h-1 before:bg-primary  before:rounded-full before:top-7 before:left-[50%] before:-translate-x-1/2 transition-all ease-in-out delay-[3000] text-primary relative";
 
@@ -102,10 +97,7 @@ const Menu = () => {
     <ul className="hidden  xl:flex items-center justify-center list-none gap-x-[65px]  cursor-pointer">
       {menuData.map(({ id, item, link_id }) => (
         <Link activeClass={activeDot} smooth spy to={link_id}>
-          <li
-            key={id}
-            onClick={() => setActive(id)}
-          >
+          <li key={id} onClick={() => setActive(id)}>
             {item}
           </li>
         </Link>
@@ -175,95 +167,81 @@ const HumbagerMenuItems = ({ menuActive, handleMenuActive }) => {
 // *************** Banner **********
 
 const Banner = () => {
-  const [element, controls] = useScroll();
-  const button =
-    "px-8 py-3 xl:px-10  xl:py-3 border border-primary rounded-[24px]";
-
   return (
-    <div className="h-full">
+    <div>
       <div className="absolute top-32 xl:top-0 h-full w-full xl:flex xl:flex-row xl:justify-between items-center px-0 xl:px-20 z-0 overflow-hidden  ">
-        <motion.div
-          className="w-full  xl:max-w-[520px] px-4 xl:px-0 mb-20 xl:mb-0 "
-          ref={element}
-          variants={leftAnimation}
-          animate={controls}
-          transition={{
-            delay: 0.02,
-            type: "tween",
-            duration: 0.8,
-          }}
-        >
-          <p className="text-[40px]  xl:text-[60px] text-center xl:text-left text-black font-bold">
-            Donating is about
-            <br /> making
-            <br /> a <span className="text-primary">Difference.</span>
-          </p>
-          <p className="text-[14px] xl:text-[24px] text-center xl:text-left py-10 text-clr-0-0-50">
-            Eu viverra erat fusce tortor cum libero, pharetra. Nunc cursus
-            cursus odio convallis aliquam in nunc. Commodo ultrices massa urna
-            gravida interdum fringilla massa cum.
-          </p>
+        <BannerHomeLeft />
 
-          <button
-            className={`${button} bg-primary text-white absolute left-1/2 xl:left-0  -translate-x-1/2 xl:translate-x-0 xl:relative text-[1rem]`}
-          >
-            Donate Now
-          </button>
-        </motion.div>
-        <motion.div
-          className="bg-form_vector_mobile    xl:bg-form_vector  w-full h-[33rem] md:h-[64rem]  xl:pt-0  xl:w-[717px] xl:h-[675px] bg-no-repeat bg-cover flex items-center justify-center  "
-          ref={element}
-          variants={zoomAnimation}
-          animate={controls}
-          transition={{
-            delay: 0.02,
-            type: "tween",
-            duration: 0.8,
-          }}
-        >
-          <DonationForm />
-        </motion.div>
+        <BannerRight />
       </div>
-      <motion.img
-        src={circle3}
-        alt=""
-        className=" absolute top-20  "
-        ref={element}
-        variants={zoomAnimation}
-        animate={controls}
-        transition={{
-          delay: 0.02,
-          type: "tween",
-          duration: 0.3,
-        }}
-      />
-      <motion.img
+      <img src={circle3} alt="" className=" absolute top-20  " />
+      <img
         src={circle1}
         alt=""
         className="absolute right-0 bottom-[58%]  w-[2.75rem] h-[2.75rem] xl:left-0 xl:bottom-0 xl:w-[10rem] xl:h-[10rem]"
-        ref={element}
-        variants={zoomAnimation}
-        animate={controls}
-        transition={{
-          delay: 0.02,
-          type: "tween",
-          duration: 0.3,
-        }}
       />
-      <motion.img
+      <img
         src={circle2}
         alt=""
-        className="absolute bottom-[15.188rem] left-0 xl:bottom-0 xl:left-[50%]"
-        ref={element}
-        variants={zoomAnimation}
-        animate={controls}
-        transition={{
-          delay: 0.02,
-          type: "tween",
-          duration: 0.3,
-        }}
+        className="absolute bottom-[36.188rem] md:bottom-[52.188rem] left-0 xl:bottom-0 xl:left-[50%]"
       />
     </div>
+  );
+};
+
+const BannerHomeLeft = () => {
+  const [element, controls] = useScroll();
+  const button =
+    "px-8 py-3 xl:px-10  xl:py-3 border border-primary rounded-[24px]";
+  return (
+    <motion.div
+      className="w-full  xl:max-w-[520px] px-4 xl:px-0 mb-20 xl:mb-0 "
+      ref={element}
+      variants={leftAnimation}
+      animate={controls}
+      transition={{
+        delay: 0.02,
+        type: "tween",
+        duration: 0.8,
+      }}
+    >
+      <p className="text-[40px]  xl:text-[60px] text-center xl:text-left text-black font-bold">
+        Donating is about
+        <br /> making
+        <br /> a <span className="text-primary">Difference.</span>
+      </p>
+      <p className="text-[14px] xl:text-[24px] text-center xl:text-left py-10 text-clr-0-0-50">
+        Eu viverra erat fusce tortor cum libero, pharetra. Nunc cursus cursus
+        odio convallis aliquam in nunc. Commodo ultrices massa urna gravida
+        interdum fringilla massa cum.
+      </p>
+
+      <button
+        className={`${button} bg-primary text-white absolute left-1/2 xl:left-0  -translate-x-1/2 xl:translate-x-0 xl:relative text-[1rem]`}
+      >
+        Donate Now
+      </button>
+    </motion.div>
+  );
+};
+
+const BannerRight = () => {
+  const [element, controls] = useScroll();
+
+  return (
+    <motion.div
+      className="bg-form_vector_mobile    xl:bg-form_vector  w-full h-[33rem] md:h-[64rem]  xl:pt-0  xl:w-[717px] xl:h-[675px] bg-no-repeat bg-cover flex items-center justify-center  "
+      ref={element}
+      variants={zoomAnimation}
+      animate={controls}
+      transition={{
+        delay: 0.02,
+        type: "tween",
+        duration: 0.8,
+      }}
+    >
+      <DonationForm />
+    </motion.div>
   );
 };
 
