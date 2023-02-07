@@ -124,9 +124,9 @@ const Journey = ({ element, controls }) => {
               sagittis eu elit mauris. Nisl eros vel neque vitae lorem molestie.
             </p>
 
-            <div className="flex">
+            <div className="flex w-full">
               <input
-                className="py-3 px-6 text-primary placeholder:text-primary xl:w-[400px] rounded-[30px] focus:border-none focus:outline-none"
+                className="py-3 px-6 text-primary placeholder:text-primary w-full xl:w-[400px] rounded-[30px] focus:border-none focus:outline-none"
                 placeholder="Enter your email"
               />
               <button className="btn-primary bg-black ml-3 xl:ml-10">
